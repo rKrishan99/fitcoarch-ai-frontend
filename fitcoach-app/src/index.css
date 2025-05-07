@@ -1,1 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+    html {
+        @apply transition-colors duration-300;
+    }
+    body{
+        @apply bg-background-500 dark:bg-secondary-500 dark:text-background-500;
+    }
+}
+
+
+@theme {
+    --color-primary-500: #0D9488;
+    --color-primary-400: #14B8A6;
+    --color-primary-300: #CCFBF1;
+    --color-secondary-500: #1F2937;
+    --color-secondary-400: #374151;
+    --color-secondary-300: #4B5563;
+    --color-secondary-300: #6B7280;
+    --color-background-500: #FFFFFF;
+    --color-background-400: #F3F4F6;
+    --color-accent-400: #3B82F6;
+
+}
+
