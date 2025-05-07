@@ -2,17 +2,25 @@ import React from "react";
 import { FiUser } from "react-icons/fi";
 import { IoMdNotificationsOutline  } from "react-icons/io";
 import ThemeToggle from "../themeToggle/ThemeToggle";
+import images from "../../assets/images/images";
 
 const Navbar = () => {
   const user = true;
   return (
-    <div className="bg-white flex justify-between py-4 md:[80px] px-[110px]">
+    <div className="bg-white dark:bg-secondary-600 flex items-center justify-between py-4 md:[80px] px-[110px]">
       <div>
+        <div className="flex flex-row gap-1 items-center">
+            {
+
+            }
+            <img src={images.greenLogoIcon} alt="fitcoach" className="w-[34px]" />
         <img
-          src="https://www.fitcoachapp.com/static/media/logo.0b4f1c2a.png"
+          src={images.FitCoachAI}
           alt="logo"
-          className="w-20 h-20"
+          className="w-[140px]"
         />
+        </div>
+        
       </div>
       <div>
         <div className="flex flex-row items-center gap-4">
