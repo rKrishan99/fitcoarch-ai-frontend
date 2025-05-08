@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/login/Login";
 import Home from "./pages/home/Home";
 import SignUp from "./components/signUp/SignUp";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
 
       <Login/>
       <SignUp/>
+
+      <Footer/>
     </div>
   );
 }
