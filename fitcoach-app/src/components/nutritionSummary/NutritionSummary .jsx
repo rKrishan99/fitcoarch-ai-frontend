@@ -1,4 +1,3 @@
-import ProgressBar from "@ramonak/react-progress-bar";
 import React from "react";
 import { PiPuzzlePiece } from "react-icons/pi";
 
