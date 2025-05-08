@@ -2,6 +2,7 @@ import React from "react";
 import WorkoutSummary from "../../components/workoutSummary/WorkoutSummary";
 import QuickActions from "../../components/quickActions/QuickActions";
 import NutritionSummary from "../../components/nutritionSummary/NutritionSummary ";
+import UpcomingSchedule from "../../components/upcomingSchedule/UpcomingSchedule";
 
 const UserDashbord = () => {
   return (
@@ -16,6 +17,7 @@ const UserDashbord = () => {
           <NutritionSummary />
         </div>
         <QuickActions />
+        <UpcomingSchedule/>
       </div>
     </div>
   );
