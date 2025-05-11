@@ -86,7 +86,7 @@ const Navbar = () => {
       </div>
       {/* Mobile Navigation */}
       {menuOpen && (
-        <div className="absolute top-16 p-8 left-0 right-0 z-100 flex flex-col bg-background-500 dark:bg-black border-t-1 border-gray-100 dark:border-gray-900">
+        <div className="absolute sm:hidden top-16 p-8 left-0 right-0 z-100 flex flex-col bg-background-500 dark:bg-black border-t-1 border-gray-100 dark:border-gray-900">
           {user ? (
             <div className="rounded-full border-1 hover:border-primary-400 cursor-pointer">
               <FiUser size={34} className="hover:text-primary-400" />

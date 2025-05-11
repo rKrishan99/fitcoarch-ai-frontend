@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import images from "../../assets/images/images";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { IoCheckmarkOutline } from "react-icons/io5";
 import GoogleSignIn from "../signInOptions/GoogleSignIn";
 import FacebookSignIn from "../signInOptions/FacebookSignIn";
 import GithubSignIn from "../signInOptions/GithubSignIn";
