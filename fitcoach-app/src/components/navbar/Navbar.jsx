@@ -7,22 +7,27 @@ import { ModalContext } from "../../context/ModalContext";
 import { Link, NavLink } from "react-router-dom";
 import { TbMenu2 } from "react-icons/tb";
 import { TbMenuDeep } from "react-icons/tb";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Dashboard", path: "/user-dashboard" },
   { name: "About", path: "/abput" },
   { name: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
-  const user = false;
+  const { authInfo } = useSelector((state) => state.auth);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const { setVisibleLogin } = useContext(ModalContext);
+  const { setVisibleLogin, visibleSidebar, setVisibleSidebar } =
+    useContext(ModalContext);
 
   return (
-    <div className="bg-white dark:bg-secondary-600 flex items-center justify-between py-4 px-[30px] sm:px-[40px] md:[80px] lg:px-[120px] z-50 shadow-2xl overflow-hidden">
+    <div
+      className={`bg-white z-50 dark:bg-secondary-600 flex items-center justify-between py-4 px-[30px] sm:px-[40px] md:px-[80px] lg:px-[120px] shadow-2xl overflow-hidden ${
+        visibleSidebar ? "fixed top-0 left-0 right-0" : ""
+      }`}
+    >
       <div>
         <Link to="/">
           <div className="flex flex-row gap-1 items-center cursor-pointer">
@@ -54,15 +59,40 @@ const Navbar = () => {
                 {navlink.name}
               </NavLink>
             ))}
+            {authInfo != null ? (
+              <NavLink
+                to="user-dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white bg-primary-400 px-3 rounded transition-all duration-300"
+                    : "text-black dark:text-white text-lg hover:text-navItem-hover"
+                }
+              >
+                Dashboard
+              </NavLink>
+            ) : (
+              <></>
+            )}
           </div>
           <IoMdNotificationsOutline
             size={24}
             className="hover:text-primary-400 cursor-pointer"
           />
           <div className="hidden sm:flex">
-            {user ? (
-              <div className="rounded-full border-1 hover:border-primary-400 cursor-pointer">
-                <FiUser size={34} className="hover:text-primary-400" />
+            {authInfo != null ? (
+              <div
+                onClick={() => setVisibleSidebar(!visibleSidebar)}
+                className="rounded-full border-1 hover:border-primary-400 cursor-pointer overflow-hidden w-10 h-10"
+              >
+                {authInfo.profileImage != "" ? (
+                  <img
+                    src={authInfo?.user?.profileImage}
+                    alt="user"
+                    className=""
+                  />
+                ) : (
+                  <FiUser size={34} className="hover:text-primary-400" />
+                )}
               </div>
             ) : (
               <button
@@ -87,7 +117,7 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {menuOpen && (
         <div className="absolute sm:hidden top-16 p-8 left-0 right-0 z-100 flex flex-col bg-background-500 dark:bg-black border-t-1 border-gray-100 dark:border-gray-900">
-          {user ? (
+          {authInfo != null ? (
             <div className="rounded-full border-1 hover:border-primary-400 cursor-pointer">
               <FiUser size={34} className="hover:text-primary-400" />
             </div>

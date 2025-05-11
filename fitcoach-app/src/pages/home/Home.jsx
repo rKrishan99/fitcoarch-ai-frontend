@@ -7,7 +7,7 @@ import CTSSection from '../../components/homeSections/CTSSection';
 
 const Home = () => {
   return (
-    <div className='min-h-screen'>
+    <div className=''>
       <HeroSection/>
       <FeaturesSection/>
       <HowItWorksSection/>

@@ -5,6 +5,7 @@ export const ModalContext = createContext();
 export const ModalContextProvider = ({ children }) => {
   const [visibleLogin, setVisibleLogin] = useState(false);
   const [visibleSignUp, setVisibleSignUp] = useState(false);
+  const [visibleSidebar, setVisibleSidebar] = useState(true);
 
   const closeAllModals = () => {
     setVisibleLogin(false);
@@ -19,6 +20,8 @@ export const ModalContextProvider = ({ children }) => {
         visibleSignUp,
         setVisibleSignUp,
         closeAllModals,
+        visibleSidebar,
+        setVisibleSidebar,
       }}
     >
       {children}

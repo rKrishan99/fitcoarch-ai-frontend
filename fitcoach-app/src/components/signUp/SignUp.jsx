@@ -10,6 +10,11 @@ import { ModalContext } from "../../context/ModalContext";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../../graphql/mutations/authMutation";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { SprinnerContext } from "../../context/SprinnerContext";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../store/slices/authSlice";
+import { store } from "../../store/store";
 
 const style = {
   position: "absolute",
@@ -30,9 +35,12 @@ const style = {
 };
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigate();
   const { visibleSignUp, setVisibleSignUp, setVisibleLogin, closeAllModals } =
     useContext(ModalContext);
+  const { setLoading } = useContext(SprinnerContext);
 
   const [register, { data, loading, error }] = useMutation(REGISTER_USER);
 
@@ -44,17 +52,10 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  console.log(loading);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // if (password !== confirmPassword) {
-    //   alert("Passwords do not match");
-    //   return;
-    // }
-
-    // const name = email.split("@")[0] || "User";
-
-    // const profileImage = `https://ui-avatars.com/api/?name=${name}&background=random`;
 
     console.log("Submitting mutation with variables:", {
       email,
@@ -65,34 +66,59 @@ const SignUp = () => {
     try {
       const res = await register({
         variables: {
-            name,
-            email,
-            password,
-            profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-              name
-            )}&background=random`,
-            role: 'user',
-      
+          name,
+          email,
+          password,
+          profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            name
+          )}&background=random`,
+          role: "user",
         },
       });
-      console.log("User register:", res.data.register);
+
+      console.log("User is registered:", res.data.register);
+      console.log("Data from REGISTER_USER:", data);
+
+      // Save user data to Redux + localStorage
+      dispatch(
+        setCredentials({
+          token: res.data.register.token,
+          user: res.data.register.user,
+        })
+      );
+
+      console.log("Current Redux state:", store.getState().auth);
 
       // Optionally store the token
-      localStorage.setItem("token", res.data.register.token);
+      // localStorage.setItem("token", res.data.register.token);
 
       setName("");
       setEmail("");
       setPassword("");
       setVisibleSignUp(false);
-      navigation("/user-dashboard");
+
+      toast.success("Successfully SignUp!");
+
+      if (res.data.register.role === "admin") {
+        navigation("/admin-dashboard");
+      } else {
+        navigation("/user-dashboard");
+      }
     } catch (err) {
       console.error("Signup failed:", err.message);
+      console.log("Error form REGISTER_USER::", error);
+      toast.error("Fail Signup! Please try again.");
     }
   };
 
   useEffect(() => {
     setVisibleSignUp(visibleSignUp);
   }, [visibleSignUp]);
+
+  useEffect(() => {
+    console.log("Loading state changed:", loading);
+    setLoading(loading);
+  }, [loading]);
 
   const handleLoginOpen = () => {
     setVisibleSignUp(false);
@@ -133,6 +159,7 @@ const SignUp = () => {
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400"
                 required
+                disabled={loading}
               />
             </div>
             <div className="mb-4">
@@ -150,6 +177,7 @@ const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400"
                 required
+                disabled={loading}
               />
             </div>
             <div className="mb-4">
@@ -168,6 +196,7 @@ const SignUp = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 pr-10" // Added pr-10 for icon spacing
                   required
+                  disabled={loading}
                   minLength="8"
                 />
                 <button
@@ -199,6 +228,7 @@ const SignUp = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400 pr-10" // Added pr-10 for icon spacing
                   required
+                  disabled={loading}
                   minLength="8"
                 />
                 <button
@@ -221,6 +251,7 @@ const SignUp = () => {
                 <input
                   type="checkbox"
                   id="myCheckbox"
+                  disabled={loading}
                   className="appearance-none w-4 h-4 border-2 border-gray-300 rounded checked:bg-primary-400 checked:border-primary-400 focus:outline-none transition-colors cursor-pointer"
                 />
                 </div>
@@ -240,6 +271,7 @@ const SignUp = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full mt-6 bg-primary-400 text-white py-2 px-4 rounded-md hover:bg-primary-500 transition duration-200 cursor-pointer"
           >
             SignUp
@@ -248,6 +280,7 @@ const SignUp = () => {
             <p className="text-sm font-semibold">Already have an account? </p>
             <p
               onClick={handleLoginOpen}
+              disabled={loading}
               className="text-sm hover:text-primary-400 cursor-pointer"
             >
               Login
