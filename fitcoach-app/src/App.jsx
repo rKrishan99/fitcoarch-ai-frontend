@@ -9,18 +9,20 @@ import SignUp from "./components/signUp/SignUp";
 import Footer from "./components/footer/Footer";
 import Loader from "./components/Loader";
 import SideBar from "./components/sideBar/SIdeBar";
-import AOS from 'aos';
+import AOS from "aos";
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
 import UserProfile from "./pages/userProfile/userProfile";
-
+import RequestModal from "./components/resetPassword/RequestModal";
+import AddNewPassword from "./components/resetPassword/AddNewPassword";
+import AskYesOrNot from "./components/resetPassword/AskYesOrNot";
+import StartDashboard from "./components/startDashboard/StartDashboard";
 
 function App() {
-
   useEffect(() => {
     AOS.init({
-      duration: 800,      // Animation duration (ms)
-      easing: 'ease-in-out', // Easing type
-      once: true,        // Only animate once
+      duration: 800, // Animation duration (ms)
+      easing: "ease-in-out", // Easing type
+      once: true, // Only animate once
       mirror: false, // Whether elements should animate out while scrolling past
     });
   }, []);
@@ -29,19 +31,23 @@ function App() {
     <div>
       <ToastContainer position="bottom-right" />
       <Navbar />
-      {/* <Login/> */}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user-dashboard" element={<UserDashbord />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/start-dashboard" element={<StartDashboard />} />
       </Routes>
 
       <Login />
       <SignUp />
-      <SideBar/>
+      <SideBar />
       <Loader />
+      <AskYesOrNot />
+      <RequestModal />
+      <AddNewPassword />
       <Footer />
     </div>
   );

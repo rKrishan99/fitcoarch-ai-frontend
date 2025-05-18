@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiUser } from "react-icons/fi";
 import { ModalContext } from "../../context/ModalContext";
 import { MdClose } from "react-icons/md";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { LiaPowerOffSolid } from "react-icons/lia";
-import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const { authInfo } = useSelector((state) => state.auth);
 

@@ -5,11 +5,16 @@ export const ModalContext = createContext();
 export const ModalContextProvider = ({ children }) => {
   const [visibleLogin, setVisibleLogin] = useState(false);
   const [visibleSignUp, setVisibleSignUp] = useState(false);
-  const [visibleSidebar, setVisibleSidebar] = useState(true);
+  const [visibleSidebar, setVisibleSidebar] = useState(false);
+  const [visibleRequestResetPassword, setVisiblleRequestResetPassword] =
+    useState(false);
+  const [visibleAddNewPassword, setAddNewPassword] = useState(false);
+  const [visibleAskYesOrNot, setVisibleAskYesOrNot] = useState(false);
 
   const closeAllModals = () => {
     setVisibleLogin(false);
     setVisibleSignUp(false);
+    setVisiblleRequestResetPassword(false);
   };
 
   return (
@@ -22,6 +27,12 @@ export const ModalContextProvider = ({ children }) => {
         closeAllModals,
         visibleSidebar,
         setVisibleSidebar,
+        visibleRequestResetPassword,
+        setVisiblleRequestResetPassword,
+        visibleAddNewPassword,
+        setAddNewPassword,
+        visibleAskYesOrNot,
+        setVisibleAskYesOrNot,
       }}
     >
       {children}

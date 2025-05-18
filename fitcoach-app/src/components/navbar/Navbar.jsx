@@ -10,9 +10,9 @@ import { TbMenuDeep } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/abput" },
-  { name: "Contact", path: "/contact" },
+  { id: 1, name: "Home", path: "/" },
+  { id: 2, name: "About", path: "/abput" },
+  { id: 3, name: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
@@ -49,6 +49,7 @@ const Navbar = () => {
           <div className="hidden sm:flex gap-4">
             {navLinks.map((navlink) => (
               <NavLink
+                key={navlink.id}
                 to={navlink.path}
                 className={({ isActive }) =>
                   isActive

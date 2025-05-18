@@ -7,6 +7,14 @@ import GoogleSignIn from "../signInOptions/GoogleSignIn";
 import FacebookSignIn from "../signInOptions/FacebookSignIn";
 import GithubSignIn from "../signInOptions/GithubSignIn";
 import { ModalContext } from "../../context/ModalContext";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../graphql/mutations/authMutation";
+import { toast } from "react-toastify";
+import { SprinnerContext } from "../../context/SprinnerContext";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../store/slices/authSlice";
+import { store } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -27,29 +35,81 @@ const style = {
 };
 
 const Login = () => {
-  //   const [open, setOpen] = useState(isOpen);
+  const dispatch = useDispatch();
 
-  const { visibleLogin, setVisibleLogin, setVisibleSignUp, closeAllModals } =
-    useContext(ModalContext);
+  const navigation = useNavigate();
+  const {
+    visibleLogin,
+    setVisibleLogin,
+    setVisibleSignUp,
+    closeAllModals,
+    setVisibleAskYesOrNot,
+  } = useContext(ModalContext);
+
+  const { setLoading } = useContext(SprinnerContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const [login, { loading, error }] = useMutation(LOGIN_USER);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await login({
+        variables: {
+          email,
+          password,
+        },
+      });
+
+      dispatch(
+        setCredentials({
+          token: res.data.login.token,
+          user: res.data.login.user,
+        })
+      );
+
+      console.log("Current Redux state:", store.getState().auth);
+
+      setEmail("");
+      setPassword("");
+      setVisibleLogin(false);
+
+      toast.success("Successfully Login!");
+      if (res.data?.login?.role === "admin") {
+        navigation("/admin-dashboard");
+      } else {
+        navigation("/user-dashboard");
+      }
+    } catch (err) {
+      console.error("Login failed:", err.message);
+      console.log("Error form LOGIN_USER:", error);
+      toast.error("Fail Login! Please try again.");
+    }
   };
 
   useEffect(() => {
     setVisibleLogin(visibleLogin);
   }, [visibleLogin]);
 
+  useEffect(() => {
+    console.log("Loading state changed:", loading);
+    setLoading(loading);
+  }, [loading]);
+
   const handleSignupOpen = () => {
     setVisibleLogin(false);
     setVisibleSignUp(true);
   };
 
+  const handleForgetPassword = () => {
+    setVisibleSignUp(false);
+    setVisibleAskYesOrNot(true);
+  };
   return (
     <Modal
       keepMounted
@@ -133,7 +193,10 @@ const Login = () => {
                 Accept terms
               </label>
             </div> */}
-            <span className="text-sm font-medium text-gray-700 hover:text-primary-500 cursor-pointer">
+            <span
+              onClick={handleForgetPassword}
+              className="text-sm font-medium text-gray-700 hover:text-primary-500 cursor-pointer"
+            >
               Forget Password?
             </span>
           </div>

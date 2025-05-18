@@ -38,8 +38,13 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   const navigation = useNavigate();
-  const { visibleSignUp, setVisibleSignUp, setVisibleLogin, closeAllModals } =
-    useContext(ModalContext);
+  const {
+    visibleSignUp,
+    setVisibleSignUp,
+    setVisibleLogin,
+    closeAllModals,
+    setVisibleAskYesOrNot,
+  } = useContext(ModalContext);
   const { setLoading } = useContext(SprinnerContext);
 
   const [register, { data, loading, error }] = useMutation(REGISTER_USER);
@@ -47,21 +52,11 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  console.log(loading);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Submitting mutation with variables:", {
-      email,
-      password,
-      name,
-    });
 
     try {
       const res = await register({
@@ -79,18 +74,15 @@ const SignUp = () => {
       console.log("User is registered:", res.data.register);
       console.log("Data from REGISTER_USER:", data);
 
-      // Save user data to Redux + localStorage
+  
       dispatch(
         setCredentials({
           token: res.data.register.token,
-          user: res.data.register.user,
+          auth: res.data.register.user,
         })
       );
 
       console.log("Current Redux state:", store.getState().auth);
-
-      // Optionally store the token
-      // localStorage.setItem("token", res.data.register.token);
 
       setName("");
       setEmail("");
@@ -102,7 +94,7 @@ const SignUp = () => {
       if (res.data.register.role === "admin") {
         navigation("/admin-dashboard");
       } else {
-        navigation("/user-dashboard");
+        navigation("/start-dashboard");
       }
     } catch (err) {
       console.error("Signup failed:", err.message);
@@ -125,6 +117,11 @@ const SignUp = () => {
     setVisibleLogin(true);
   };
 
+  const handleForgetPassword = () => {
+    setVisibleSignUp(false);
+    setVisibleAskYesOrNot(true);
+  };
+  
   return (
     <Modal
       keepMounted
@@ -263,7 +260,10 @@ const SignUp = () => {
                 Accept terms
               </label>
             </div> */}
-              <span className="text-sm font-medium text-gray-700 hover:text-primary-500 cursor-pointer">
+              <span
+                onClick={handleForgetPassword}
+                className="text-sm font-medium text-gray-700 hover:text-primary-500 cursor-pointer"
+              >
                 Forget Password?
               </span>
             </div>
