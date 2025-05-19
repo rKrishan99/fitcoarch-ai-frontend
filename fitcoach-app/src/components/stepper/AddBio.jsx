@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ToolTip from "../ToolTip";
 import { UserBioFormContext } from "../../context/UserBioFormContext";
 import { StepsContext } from "../../context/StepsContext";
@@ -23,10 +23,11 @@ const AddBio = () => {
 
   const { userInfo } = useSelector((state) => state.user);
 
-  if (userInfo) {
-    setActiveStep(3);
-    return;
-  }
+  useEffect(() => {
+    if (userInfo) {
+      setActiveStep(3);
+    }
+  }, [userInfo, setActiveStep]);
 
   const handleBioConfirm = (e) => {
     e.preventDefault();

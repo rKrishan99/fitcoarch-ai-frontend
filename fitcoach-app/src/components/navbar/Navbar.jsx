@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-white z-50 dark:bg-secondary-600 flex items-center justify-between py-4 px-[30px] sm:px-[40px] md:px-[80px] lg:px-[120px] shadow-2xl overflow-hidden ${
+      className={`bg-backgroundLight-500 z-50 dark:bg-backgroundDark-400 flex items-center justify-between py-4 px-[30px] sm:px-[40px] md:px-[80px] lg:px-[120px] shadow-2xl overflow-hidden ${
         visibleSidebar ? "fixed top-0 left-0 right-0" : ""
       }`}
     >
@@ -54,7 +54,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "text-white bg-primary-400 px-3 rounded transition-all duration-300"
-                    : "text-black dark:text-white text-lg hover:text-navItem-hover"
+                    : "text-lg hover:text-navItem-hover"
                 }
               >
                 {navlink.name}
@@ -66,7 +66,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "text-white bg-primary-400 px-3 rounded transition-all duration-300"
-                    : "text-black dark:text-white text-lg hover:text-navItem-hover"
+                    : "text-lg hover:text-navItem-hover"
                 }
               >
                 Dashboard
@@ -137,7 +137,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "text-primary-400 text-lg transition-all duration-300"
-                    : "text-black dark:text-white text-lg"
+                    : "text-lg"
                 }
               >
                 {navlink.name}

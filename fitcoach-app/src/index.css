@@ -9,7 +9,7 @@
         @apply transition-colors duration-300;
     }
     body{
-        @apply bg-background-400 dark:bg-secondary-500 dark:text-background-500;
+        @apply bg-backgroundLight-400 dark:bg-backgroundDark-300 dark:text-backgroundLight-400;
     }
 }
 
@@ -26,8 +26,12 @@
     --color-secondary-200: #4B5563;
     --color-secondary-100: #6B7280;
     --color-secondary-50: #C2C6CE;
-    --color-background-500: #FFFFFF;
-    --color-background-400: #F3F4F6;
+    --color-backgroundLight-500: #FFFFFF;
+    --color-backgroundLight-400: #F6F6F6;
+    --color-backgroundLight-300: #F1F1F1;
+    --color-backgroundDark-500: #000000;
+    --color-backgroundDark-400: #0C0C0C;
+    --color-backgroundDark-300: #161616;
     --color-supportBlue-300: #3662e3;
     --color-supportBlue-200: #BFD4F9;
     --color-supportBlue-100: #E2EDFD;

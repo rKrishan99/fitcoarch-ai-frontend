@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import ToolTip from "../ToolTip";
 import { UserBioFormContext } from "../../context/UserBioFormContext";
 import { toast } from "react-toastify";
 import { SUBMIT_USER_BIO } from "../../graphql/mutations/userMutation";

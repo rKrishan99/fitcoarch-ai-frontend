@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 
 
 const UserDashbord = () => {
-  const visibleDashboard = false;
   const { authInfo } = useSelector((state) => state.auth);
+  const { workoutPlan } = useSelector((state) => state.workout);
 
   return (
     <div className="px-[30px] w-full pb-40 sm:px-[40px] md:px-[80px] lg:px-[120px] min-h-screen ">
-      {visibleDashboard ? (
+      {workoutPlan ? (
         <div className="">
           <h1 className="mt-10 text-3xl font-bold">Welcome back, {authInfo?.user?.name}</h1>
           <p className="text-secondary-400 dark:text-secondary-50 mt-2">
