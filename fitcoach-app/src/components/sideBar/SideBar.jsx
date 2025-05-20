@@ -5,7 +5,9 @@ import { ModalContext } from "../../context/ModalContext";
 import { MdClose } from "react-icons/md";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { LiaPowerOffSolid } from "react-icons/lia";
-import { logout } from "../../store/slices/authSlice";
+import { logout as logoutAuth } from "../../store/slices/authSlice";
+import { logout as logoutUser } from "../../store/slices/userSlice";
+import { logout as logoutWorkout } from "../../store/slices/workoutPlanSlice";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
@@ -18,7 +20,9 @@ const SideBar = () => {
   const { visibleSidebar, setVisibleSidebar } = useContext(ModalContext);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutAuth());
+    dispatch(logoutUser());
+    dispatch(logoutWorkout());
     setVisibleSidebar(false);
     navigate("/");
   };

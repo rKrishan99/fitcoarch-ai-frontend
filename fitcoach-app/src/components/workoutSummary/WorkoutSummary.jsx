@@ -10,7 +10,7 @@ const WorkoutSummary = () => {
   return (
     <div className="flex flex-col gap-4 bg-white dark:bg-secondary-400 w-full lg:w-1/2 p-8 rounded-lg shadow-lg overflow-hidden">
       <div className="flex items-center justify-between">
-        <h1 className="text-[18px] md:text-xl font-semibold">Workout Summary</h1>
+        <h1 className="text-[18px] md:text-xl font-semibold">📆 Workout Schedule</h1>
         <span className="text-primary-500 font-semibold text-[13px] md:text-[14px]">This Week</span>
       </div>
       <div className="flex gap-4 items-center mt-1">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/slices/authSlice";
+import { logout as logoutAuth } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import UserAccountInfo from "../../components/userProfileElement/UserAccountInfo";
@@ -19,7 +19,7 @@ const UserProfile = () => {
   const [visibleTab, setVisiblTab] = useState("Account Info");
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutAuth());
     navigate("/");
   };
 
