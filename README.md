@@ -80,22 +80,8 @@ cd fitcoach-ai/frontend/fitcoach-app
 
 ### 📁 Project Structure
 
-fitcoach-app/
-├── public/                 # Static assets
-├── src/
-│   ├── components/         # Reusable UI components
-│   │   ├── chatbot/       # AI chatbot components
-│   │   ├── homeSections/  # Landing page sections
-│   │   ├── stepper/       # Multi-step form components
-│   │   └── userDashboard/ # Dashboard components
-│   ├── context/           # React context providers
-│   ├── graphql/           # GraphQL queries and mutations
-│   ├── pages/             # Main page components
-│   ├── store/             # Redux store and slices
-│   ├── utils/             # Utility functions
-│   └── main.jsx          # Application entry point
-├── package.json
-└── README.md
+![image](https://github.com/user-attachments/assets/b764f3ef-3d46-4215-ab35-b582b78ed617)
+
 
 # 🔄 Key Features Walkthrough
 
