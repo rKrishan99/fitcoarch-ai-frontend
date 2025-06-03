@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ModalContext } from "../../context/ModalContext";
+import { FetchDataContext } from "../../context/FetchDataContext";
+import { setUserDataInfo } from "../../store/slices/userDataSlice";
+import { setWorkoutPlan } from "../../store/slices/workoutPlanSlice";
 
 const GoogleSignIn = () => {
   const dispatch = useDispatch();
@@ -20,6 +23,8 @@ const GoogleSignIn = () => {
   const [register] = useMutation(REGISTER_USER);
 
   const { setVisibleSignUp, setVisibleLogin } = useContext(ModalContext);
+
+  const { getBioData, getPlanData } = useContext(FetchDataContext);
 
   const hanndleGoogleSignin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -48,8 +53,62 @@ const GoogleSignIn = () => {
             toast.success("Google login successful!");
             setVisibleSignUp(false);
             setVisibleLogin(false);
-            navigate("/user-dashboard");
-            console.log("Logged respons via Google: ",data.login);
+            console.log("Logged respons via Google: ", data.login);
+
+            // Fetch user bio data with better error handling
+            try {
+              console.log("Attempting to fetch bio data for userId:", data.login.user.id);
+              const bioData = await getBioData(data.login.user.id);
+              console.log("Fetched user bio data from context:", bioData);
+
+              if (bioData?.getUserData) {
+                dispatch(setUserDataInfo({
+                  userData: bioData.getUserData
+                }));
+                console.log("Bio data stored in Redux successfully");
+              } else {
+                console.log("No bio data found for user - this is normal for new users");
+              }
+            } catch (bioError) {
+              console.log("Bio data fetch failed (normal for new users):", bioError.message);
+              // Don't show error toast for missing bio data as it's normal for new users
+            }
+
+            // Fetch workout plan data with better error handling
+            try {
+              console.log("Attempting to fetch workout plan for userId:", data.login.user.id);
+              const planData = await getPlanData(data.login.user.id);
+              console.log("Fetched workout plan data from context:", planData);
+
+              if (planData?.getWorkoutPlan?.plan) {
+                const jsonString = planData.getWorkoutPlan.plan.replace(
+                  /^```json\n|\n```$/g,
+                  ""
+                );
+                const parsedPlan = JSON.parse(jsonString);
+                console.log('parsedPlan in g login:', parsedPlan)
+                dispatch(setWorkoutPlan({ parsedPlan }));
+                console.log("Workout plan stored in Redux successfully");
+              } else {
+                console.log("No workout plan found for user");
+              }
+            } catch (planError) {
+              console.log("Workout plan fetch failed (normal for users without plans):", planError.message);
+            }
+
+            // fetch workout plan data
+            const planData = await getPlanData(data.login.user.id);
+            console.log("Fetched workout plan data from context:", planData);
+
+            if (planData?.getWorkoutPlan) {
+              const jsonString = planData.getWorkoutPlan.plan.replace(
+                /^```json\n|\n```$/g,
+                ""
+              );
+              const parsedPlan = JSON.parse(jsonString);
+              dispatch(setWorkoutPlan(parsedPlan));
+            }
+
             return;
           }
         } catch (loginError) {
@@ -75,8 +134,8 @@ const GoogleSignIn = () => {
           toast.success("Google registration successful!");
           setVisibleSignUp(false);
           setVisibleLogin(false);
-          navigate("/start-dashboard");
-          console.log("Registerd respons via Google: ",data.register);
+          navigate("/user-dashboard");
+          console.log("Registerd respons via Google: ", data.register);
         }
       } catch (error) {
         console.error("Google Sign-In failed:", error);
@@ -92,13 +151,10 @@ const GoogleSignIn = () => {
   return (
     <div
       onClick={hanndleGoogleSignin}
-      className="flex flex-row items-center gap-1 bg-red-600 hover:bg-red-700 rounded py-1 px-2 cursor-pointer"
+      className="flex flex-row items-center justify-center gap-3 bg-red-600 hover:bg-red-700 rounded-md py-2 px-2 cursor-pointer"
     >
-      <FaGoogle className="text-white" />
-      <span className="text-white text-[24px] font-extralight mt-[-4px]">
-        |
-      </span>
-      <span className="text-white text-sm">Google</span>
+      <FaGoogle size={24} className="text-white" />
+      <span className="text-white text-md">Google</span>
     </div>
   );
 };

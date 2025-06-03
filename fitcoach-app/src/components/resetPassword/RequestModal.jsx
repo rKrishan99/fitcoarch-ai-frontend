@@ -20,7 +20,7 @@ const style = {
   },
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 0,
   diplay: "flex",
   justifyItems: "center",
   borderRadius: 4,
@@ -29,7 +29,6 @@ const style = {
 const RequestModal = () => {
   const {
     visibleRequestResetPassword,
-    setAddNewPassword,
     setVisiblleRequestResetPassword,
     closeAllModals,
   } = useContext(ModalContext);
@@ -50,10 +49,11 @@ const RequestModal = () => {
       await requestReset({ variables: { email } });
       toast.success("Password reset link sent to your email");
 
+      setEmail("");
       setVisiblleRequestResetPassword(false);
-      setAddNewPassword(true);
     } catch (error) {
       toast.error(error.message);
+      console.error("Error requesting password reset:", error);
     }
   };
 
@@ -71,30 +71,32 @@ const RequestModal = () => {
       aria-describedby="keep-mounted-modal-description"
     >
       <Box sx={style}>
-        <IoCloseOutline
-          onClick={() => setVisiblleRequestResetPassword(false)}
-          className="absolute top-4 right-4 cursor-pointer"
-          size={24}
-        />
-        <h1 className="tex-left">Enter Your Email</h1>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mt-6 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400"
-          required
-          disabled={loading}
-        />
+        <div className="flex flex-col justify-between items-center p-10 bg-white dark:bg-black w-full h-full rounded-[16px]">
+          <IoCloseOutline
+            onClick={() => setVisiblleRequestResetPassword(false)}
+            className="absolute top-4 right-4 cursor-pointer"
+            size={24}
+          />
+          <h1 className="tex-left mt-4">Enter Your Email</h1>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full mt-6 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400"
+            required
+            disabled={loading}
+          />
 
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="w-full mt-6 bg-primary-400 text-white py-2 px-4 rounded-md hover:bg-primary-500 transition duration-200 cursor-pointer"
-        >
-          Send Reset Link
-        </button>
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="w-full mt-6 bg-primary-400 text-white py-2 px-4 rounded-md hover:bg-primary-500 transition duration-200 cursor-pointer"
+          >
+            Send Reset Link
+          </button>
+        </div>
       </Box>
     </Modal>
   );

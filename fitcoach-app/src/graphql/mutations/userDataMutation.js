@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const SUBMIT_USER_BIO = gql`
-  mutation CreateUserBio(
-    $userId: ID!
+export const SUBMIT_USER_DATA = gql`
+  mutation CreateUserData(
+    $userId: String!
     $age: Int!
     $gender: String!
     $weight: Float!
@@ -13,7 +13,7 @@ export const SUBMIT_USER_BIO = gql`
     $activityLevel: String!
     $experienceLevel: String!
   ) {
-    createUserBio(
+    createUserData(
       userId: $userId
       age: $age
       gender: $gender

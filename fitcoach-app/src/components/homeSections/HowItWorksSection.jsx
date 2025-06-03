@@ -9,7 +9,13 @@ const HowItWorksSection = () => {
       <h1 className="text-4xl font-semibold text-center">
         Your Fitness Journey in 3 Simple Steps
       </h1>
-      <div className="flex flex-col md:flex-row mt-12 justify-around gap-6 md:px-20">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="1200"
+        data-aos-delay="200"
+        data-aos-easing="ease-in"
+        className="flex flex-col md:flex-row mt-12 justify-around gap-6 md:px-20"
+      >
         <div className="bg-background-500 dark:bg-backgroundDark-300 rounded-lg p-8 flex flex-col items-center gap-4">
           <div className="bg-primary-300 dark:bg-primary-500 w-16 h-16 flex items-center justify-center rounded-full">
             <FaUser

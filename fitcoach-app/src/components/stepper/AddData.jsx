@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ToolTip from "../ToolTip";
-import { UserBioFormContext } from "../../context/UserBioFormContext";
+import { UserDataFormContext } from "../../context/UserDataFormContext";
 import { StepsContext } from "../../context/StepsContext";
 import { useSelector } from "react-redux";
 
@@ -19,15 +19,15 @@ const AddBio = () => {
     setHeight,
     healthLimitation,
     setHealthLimitation,
-  } = useContext(UserBioFormContext);
+  } = useContext(UserDataFormContext);
 
-  const { userInfo } = useSelector((state) => state.user);
+  const { userDataInfo } = useSelector((state) => state.userData);
 
   useEffect(() => {
-    if (userInfo) {
+    if (userDataInfo) {
       setActiveStep(3);
     }
-  }, [userInfo, setActiveStep]);
+  }, [userDataInfo, setActiveStep]);
 
   const handleBioConfirm = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ const AddBio = () => {
             {/* Gender */}
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
               <span className="w-32 font-medium">Gender</span>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
                 <label className="flex items-center gap-2">
                   <input
                     type="radio"

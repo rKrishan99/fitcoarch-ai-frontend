@@ -16,7 +16,7 @@ const style = {
   },
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 0,
   diplay: "flex",
   justifyItems: "center",
   borderRadius: 4,
@@ -39,29 +39,31 @@ const AskYesOrNot = () => {
       aria-describedby="keep-mounted-modal-description"
     >
       <Box sx={style}>
-        <IoCloseOutline
-          onClick={() => setVisibleAskYesOrNot(false)}
-          className="absolute top-4 right-4 cursor-pointer"
-          size={24}
-        />
-        <h1 className="">Do you want to reset password?</h1>
-
-        <div className="flex flex-row gap-4">
-          <button
-            onClick={() => {
-              setVisibleAskYesOrNot(false);
-              setVisiblleRequestResetPassword(true);
-            }}
-            className="w-[100px] mt-6 bg-primary-400 text-white py-2 px-4 rounded-md hover:bg-primary-500 transition duration-200 cursor-pointer"
-          >
-            Yes
-          </button>
-          <button
+        <div className="bg-white dark:bg-black w-full h-full rounded-[16px] flex flex-col items-center justify-center relative p-6">
+          <IoCloseOutline
             onClick={() => setVisibleAskYesOrNot(false)}
-            className="w-[100px] mt-6 bg-red-400 text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-200 cursor-pointer"
-          >
-            Cancel
-          </button>
+            className="absolute top-4 right-4 cursor-pointer"
+            size={24}
+          />
+          <h1 className="mt-4">Do you want to reset password?</h1>
+
+          <div className="flex flex-row gap-4">
+            <button
+              onClick={() => {
+                setVisibleAskYesOrNot(false);
+                setVisiblleRequestResetPassword(true);
+              }}
+              className="w-[100px] mt-6 bg-primary-400 text-white py-2 px-4 rounded-md hover:bg-primary-500 transition duration-200 cursor-pointer"
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => setVisibleAskYesOrNot(false)}
+              className="w-[100px] mt-6 bg-red-400 text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-200 cursor-pointer"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </Box>
     </Modal>

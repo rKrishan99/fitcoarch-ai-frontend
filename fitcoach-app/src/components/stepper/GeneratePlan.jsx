@@ -6,7 +6,6 @@ import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 import { setWorkoutPlan } from "../../store/slices/workoutPlanSlice";
 import WorkoutPlan from "./WorkoutPlan";
-import { StepsContext } from "../../context/StepsContext";
 
 const GeneratePlan = () => {
   const { authInfo } = useSelector((state) => state.auth);
@@ -14,7 +13,6 @@ const GeneratePlan = () => {
   const dispatch = useDispatch();
   const { workoutPlan } = useSelector((state) => state.workout);
   const [plan, setPlan] = useState(null);
-  // const { activeStep, setActiveStep } = useContext(StepsContext);
 
   const handleGenerate = async () => {
     const userId = authInfo?.user?.id;
@@ -26,17 +24,21 @@ const GeneratePlan = () => {
 
     try {
       const { data } = await generatePlan({ variables: { userId } });
-      if (data.generateWorkoutPlan?.plan) {
+      if (data?.generateWorkoutPlan?.plan) {
+        console.log("Workout data:", data);
         // Clean the response data before storing
         const jsonString = data.generateWorkoutPlan.plan.replace(
           /^```json\n|\n```$/g,
           ""
         );
+        
         const parsedPlan = JSON.parse(jsonString);
+        console.log('parsedPlan in generated:', parsedPlan)
         setPlan(parsedPlan);
         console.log("Workout Plan:", plan);
-        console.log("CreatedAt value:", plan?.createdAt); // Check what's actually in the data
-        // setActiveStep(activeStep + 1);
+        console.log("Workout parsedPlan:", parsedPlan);
+        console.log("CreatedAt value:", parsedPlan?.createdAt); 
+
         toast.success("Workout plan generated successfully!");
       } else {
         throw new Error("Invalid response format");
@@ -48,13 +50,13 @@ const GeneratePlan = () => {
   };
 
   const handleFinish = () => {
-    dispatch(setWorkoutPlan({ workout: plan }));
+    dispatch(setWorkoutPlan( plan ));
     console.log("workoutPlan:", workoutPlan);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-90 ">
-      {!workoutPlan && !loading && (
+      {!plan && !loading && (
         <button
           onClick={handleGenerate}
           className="bg-primary-400 hover:bg-primary-500 px-6 py-3 rounded-lg cursor-pointer"
@@ -71,7 +73,7 @@ const GeneratePlan = () => {
         </div>
       )}
 
-      {workoutPlan && !loading && (
+      {plan && !loading && (
         <div className="flex flex-col w-full">
           <WorkoutPlan plan={plan} />
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:px-8  mt-10">

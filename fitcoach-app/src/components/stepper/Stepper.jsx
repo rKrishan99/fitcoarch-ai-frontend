@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { IoPersonAddOutline, IoCheckmarkOutline } from "react-icons/io5";
 import { RiAiGenerate } from "react-icons/ri";
 import { GoGoal } from "react-icons/go";
-import AddBio from "./AddBio";
+import AddData from "./AddData";
 import SetGoal from "./SetGoal";
 import GeneratePlan from "./GeneratePlan";
 import { StepsContext } from "../../context/StepsContext";
@@ -15,7 +15,7 @@ const Stepper = () => {
       stepNum: 1,
       name: "Add Personal Info",
       icon: <IoPersonAddOutline size={20} />,
-      stepContent: <AddBio />,
+      stepContent: <AddData />,
     },
     {
       stepNum: 2,

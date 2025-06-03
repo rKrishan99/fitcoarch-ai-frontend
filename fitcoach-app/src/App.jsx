@@ -10,12 +10,13 @@ import Footer from "./components/footer/Footer";
 import Loader from "./components/Loader";
 import SideBar from "./components/sideBar/SIdeBar";
 import AOS from "aos";
-import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
-import UserProfile from "./pages/userProfile/userProfile";
 import RequestModal from "./components/resetPassword/RequestModal";
 import AddNewPassword from "./components/resetPassword/AddNewPassword";
 import AskYesOrNot from "./components/resetPassword/AskYesOrNot";
 import StartDashboard from "./components/startDashboard/StartDashboard";
+import ChatButton from "./components/chatbot/ChatButton";
+import UserProfile from "./pages/userProfile/UserProfile";
+import Chat from "./components/chatbot/Chat";
 
 function App() {
   useEffect(() => {
@@ -36,9 +37,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user-dashboard" element={<UserDashbord />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-profile" element={<UserProfile />} />
-        <Route path="/start-dashboard" element={<StartDashboard />} />
+        <Route path="/reset-password" element={<AddNewPassword />} />
       </Routes>
 
       <Login />
@@ -47,7 +47,8 @@ function App() {
       <Loader />
       <AskYesOrNot />
       <RequestModal />
-      <AddNewPassword />
+      <ChatButton />
+      <Chat />
       <Footer />
     </div>
   );

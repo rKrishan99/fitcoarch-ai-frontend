@@ -6,7 +6,7 @@ const StartDashboard = (props) => {
   const { workoutPlan } = useSelector((state) => state.workout);
 
   return (
-    <div className="overflow-hidden pt-10 px-[30px] xl:px-[120px]">
+    <div className="overflow-hidden pt-10 pb-20 px-[30px] xl:px-[120px]">
       {!workoutPlan ? (
         <>
           <h1 className="mt-10 text-3xl font-bold">Hi! {props.name}</h1>

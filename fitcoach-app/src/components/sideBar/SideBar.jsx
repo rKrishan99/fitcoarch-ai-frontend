@@ -6,7 +6,7 @@ import { MdClose } from "react-icons/md";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { LiaPowerOffSolid } from "react-icons/lia";
 import { logout as logoutAuth } from "../../store/slices/authSlice";
-import { logout as logoutUser } from "../../store/slices/userSlice";
+import { logout as logoutUserData } from "../../store/slices/userDataSlice";
 import { logout as logoutWorkout } from "../../store/slices/workoutPlanSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const SideBar = () => {
 
   const handleLogout = () => {
     dispatch(logoutAuth());
-    dispatch(logoutUser());
+    dispatch(logoutUserData());
     dispatch(logoutWorkout());
     setVisibleSidebar(false);
     navigate("/");
@@ -45,7 +45,7 @@ const SideBar = () => {
         className={`
         ${
           visibleSidebar === true
-            ? "fixed  top-[74px] right-0 w-auto overflow-hidden py-6 px-4 h-[calc(100vh-74px)] drop-shadow-2xl z-50 flex flex-col bg-[#ffffff] dark:bg-[#000000] transition-all duration-700"
+            ? "fixed  top-[74px] right-0 w-auto overflow-hidden py-6 px-4 h-[calc(100vh-74px)] drop-shadow-2xl z-50 flex flex-col bg-backgroundLight-500 dark:bg-backgroundDark-400 transition-all duration-700"
             : "hidden"
         }
      `}

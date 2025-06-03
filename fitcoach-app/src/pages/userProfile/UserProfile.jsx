@@ -26,7 +26,7 @@ const UserProfile = () => {
   return (
     <div className="h-[calc(100vh-74px)] flex">
       {/* Left Sidebar */}
-      <div className="relative flex-1 p-6 bg-[#f0f0f0] overflow-hidden">
+      <div className="relative flex-1 p-6 bg-[#f0f0f0] dark:bg-backgroundDark-300 overflow-hidden">
         {/* Profile and Name */}
         <div className="flex flex-col items-center mt-6">
           <div className="relative rounded-full">
@@ -52,8 +52,8 @@ const UserProfile = () => {
             <div
               onClick={() => setVisiblTab(tablink.name)}
               className={`${
-                tablink.name === visibleTab ? "bg-primary-400" : ""
-              } hover:bg-primary-400 px-6 py-2 bg-[#f6f6f6] cursor-pointer`}
+                tablink.name === visibleTab ? "bg-primary-400 dark:bg-primary-400" : ""
+              } hover:bg-primary-400 px-6 py-2 bg-[#f6f6f6] dark:bg-[#2e2e2e] cursor-pointer`}
             >
               {tablink.name}
             </div>
@@ -72,7 +72,7 @@ const UserProfile = () => {
       </div>
 
       {/* Right Content Area */}
-      <div className="flex-3 bg-[#e3e3e3]">
+      <div className="flex-3 bg-[#e3e3e3] dark:bg-[#1e1e1e]">
         {visibleTab === "Account info" ? (
           <UserAccountInfo />
         ) : visibleTab === "Your Bio" ? (

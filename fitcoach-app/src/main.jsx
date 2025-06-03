@@ -10,8 +10,9 @@ import { SprinnerContextProvider } from "./context/SprinnerContext.jsx";
 import { store } from "./store/store.js";
 import "aos/dist/aos.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserBioFormContextProvider } from "./context/UserBioFormContext.jsx";
+import { UserDataFormContextProvider } from "./context/UserDataFormContext.jsx";
 import { StepsContextProvider } from "./context/StepsContext.jsx";
+import { FetchDataContextProvider } from "./context/FetchDataContext.jsx";
 
 const client = new ApolloClient({
   uri: import.meta.env.VITE_API_URL,
@@ -31,11 +32,13 @@ createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <ModalContextProvider>
             <SprinnerContextProvider>
-              <UserBioFormContextProvider>
+              <UserDataFormContextProvider>
                 <StepsContextProvider>
-                  <App />
+                  <FetchDataContextProvider>
+                    <App />
+                  </FetchDataContextProvider>
                 </StepsContextProvider>
-              </UserBioFormContextProvider>
+              </UserDataFormContextProvider>
             </SprinnerContextProvider>
           </ModalContextProvider>
         </BrowserRouter>

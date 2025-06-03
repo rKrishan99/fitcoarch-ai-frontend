@@ -47,8 +47,8 @@ const UserAccountInfo = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           readOnly={!isChangeName}
-          className={`border text-lg rounded px-3 py-1 ${
-            !isChangeName ? "bg-gray-100" : "bg-white"
+          className={`border-1 border-gray-700  dark:border-gray-100 text-lg rounded px-3 py-1 ${
+            !isChangeName ? "bg-gray-100 dark:bg-[#151515]" : "bg-white dark:bg-[#070707]"
           }`}
         />
 
@@ -93,8 +93,8 @@ const UserAccountInfo = () => {
               value={passowdDot}
               onChange={(e) => setPasswordDot(e.target.value)}
               readOnly={true}
-              className={`border text-lg rounded px-3 py-1 ${
-                !isChangePasswordButton ? "bg-gray-100" : "bg-white"
+              className={`border-1 border-gray-700  dark:border-gray-100 text-lg rounded px-3 py-1 ${
+                !isChangePasswordButton ? "bg-gray-100 dark:bg-[#151515]" : "bg-white dark:bg-[#070707]"
               }`}
             />
 

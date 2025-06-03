@@ -4,18 +4,25 @@ import { LuDumbbell } from "react-icons/lu";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { GoGraph } from "react-icons/go";
 
-
-
 const FeaturesSection = () => {
   return (
     <div className="flex flex-col w-full px-[30px] md:px-[120px] py-20 items-center bg-background-500 dark:bg-backgroundDark-300 overflow-hidden">
       <h1 className="text-4xl font-semibold text-center">
         Why Choose Smart Personal Trainer?
       </h1>
-      <div className="mt-16 w-full flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 ">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="1200"
+        data-aos-delay="200"
+        data-aos-easing="ease-in"
+        className="mt-16 w-full flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 "
+      >
         <div className="flex flex-row gap-4 ">
           <div className="bg-primary-300 dark:bg-primary-500 w-16 h-16 flex items-center justify-center rounded-full">
-            <LuBrain size={28} className="text-primary-400 dark:text-primary-300" />
+            <LuBrain
+              size={28}
+              className="text-primary-400 dark:text-primary-300"
+            />
           </div>
           <div className="w-[200px] md:w-[300px]">
             <h1 className="text-xl font-semibold">AI-Powered Coaching</h1>
@@ -27,7 +34,10 @@ const FeaturesSection = () => {
         </div>
         <div className="flex flex-row gap-4 ">
           <div className="bg-primary-300 dark:bg-primary-500 w-16 h-16 flex items-center justify-center rounded-full">
-            <LuDumbbell size={28} className="text-primary-400 dark:text-primary-300" />
+            <LuDumbbell
+              size={28}
+              className="text-primary-400 dark:text-primary-300"
+            />
           </div>
           <div className="w-[200px] md:w-[300px]">
             <h1 className="text-xl font-semibold">Tailored Workouts</h1>
@@ -37,10 +47,19 @@ const FeaturesSection = () => {
           </div>
         </div>
       </div>
-      <div className="mt-10 w-full flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 ">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="1200"
+        data-aos-delay="200"
+        data-aos-easing="ease-in"
+        className="mt-10 w-full flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 "
+      >
         <div className="flex flex-row gap-4 ">
           <div className="bg-primary-300 dark:bg-primary-500 w-16 h-16 flex items-center justify-center rounded-full">
-            <IoFastFoodOutline size={28} className="text-primary-400 dark:text-primary-300" />
+            <IoFastFoodOutline
+              size={28}
+              className="text-primary-400 dark:text-primary-300"
+            />
           </div>
           <div className="w-[200px] md:w-[300px]">
             <h1 className="text-xl font-semibold"> Nutrition Tracking</h1>
@@ -51,7 +70,10 @@ const FeaturesSection = () => {
         </div>
         <div className="flex flex-row gap-4 ">
           <div className="bg-primary-300 dark:bg-primary-500 w-16 h-16 flex items-center justify-center rounded-full">
-            <GoGraph size={28} className="text-primary-400 dark:text-primary-300" />
+            <GoGraph
+              size={28}
+              className="text-primary-400 dark:text-primary-300"
+            />
           </div>
           <div className="w-[200px] md:w-[300px]">
             <h1 className="text-xl font-semibold">Progress Insights </h1>

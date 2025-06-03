@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 
-export const UserBioFormContext = createContext();
+export const UserDataFormContext = createContext();
 
-export const UserBioFormContextProvider = ({ children }) => {
+export const UserDataFormContextProvider = ({ children }) => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
@@ -15,7 +15,7 @@ export const UserBioFormContextProvider = ({ children }) => {
   const [experienceLevel, setExperienceLevel] = useState("");
 
   return (
-    <UserBioFormContext.Provider
+    <UserDataFormContext.Provider
       value={{
         age,
         setAge,
@@ -38,6 +38,6 @@ export const UserBioFormContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </UserBioFormContext.Provider>
+    </UserDataFormContext.Provider>
   );
 };

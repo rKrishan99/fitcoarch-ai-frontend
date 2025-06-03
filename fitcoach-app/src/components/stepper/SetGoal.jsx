@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserBioFormContext } from "../../context/UserBioFormContext";
+import { UserDataFormContext } from "../../context/UserDataFormContext";
 import { toast } from "react-toastify";
-import { SUBMIT_USER_BIO } from "../../graphql/mutations/userMutation";
+import { SUBMIT_USER_DATA } from "../../graphql/mutations/userDataMutation";
 import { useMutation } from "@apollo/client";
 import { StepsContext } from "../../context/StepsContext";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo } from "../../store/slices/userSlice";
+import { setUserDataInfo } from "../../store/slices/userDataSlice";
 import { SprinnerContext } from "../../context/SprinnerContext";
 
 const SetGoal = () => {
@@ -31,10 +31,10 @@ const SetGoal = () => {
     setWorkoutDays,
     experienceLevel,
     setExperienceLevel,
-  } = useContext(UserBioFormContext);
+  } = useContext(UserDataFormContext);
   const { setLoading } = useContext(SprinnerContext);
 
-  const [submitUserBio, { loading }] = useMutation(SUBMIT_USER_BIO);
+  const [submitUserData, { loading }] = useMutation(SUBMIT_USER_DATA);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -48,6 +48,7 @@ const SetGoal = () => {
 
     setErrors(newErrors);
 
+    console.log("Get AuthInfo from store:", authInfo);
     const userId = authInfo?.user?.id;
     console.log("Get userId from store:", userId);
 
@@ -70,7 +71,7 @@ const SetGoal = () => {
           workoutDays,
           experienceLevel,
         });
-        const res = await submitUserBio({
+        const res = await submitUserData({
           variables: {
             userId,
             age: parseInt(age),
@@ -88,13 +89,15 @@ const SetGoal = () => {
         console.log("res", res);
 
         dispatch(
-          setUserInfo({
-            auth: res.data.createUserBio,
+          setUserDataInfo({
+            userData: res.data.createUserData,
           })
         );
 
         setActiveStep(activeStep + 1);
         toast.success("Bio submitted successfully!");
+        setLoading(false);
+
       } catch (error) {
         console.error("Bio Submission failed:", error);
         toast.error(`Submission failed: ${error.message}`);
@@ -118,12 +121,12 @@ const SetGoal = () => {
           <div className="flex flex-col md:w-3/5 gap-6 relative">
             {/* Fitness Goal */}
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-              <label className="block md:w-60 mb-2 text-sm font-medium text-gray-700">
+              <label className="block md:w-60 mb-2 text-sm font-medium">
                 Fitness Goal
               </label>
               <div className="w-full">
                 <select
-                  className={`w-full p-2.5 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
+                  className={`w-full p-2.5 bg-white dark:bg-black border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
                     "fitnessGoal"
                   )}`}
                   value={fitnessGoal}
@@ -144,12 +147,12 @@ const SetGoal = () => {
 
             {/*  Activity Level */}
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-              <label className="block md:w-60 mb-2 text-sm font-medium text-gray-700">
+              <label className="block md:w-60 mb-2 text-sm font-medium ">
                 Activity Level
               </label>
               <div className="w-full">
                 <select
-                  className={`w-full p-2.5 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
+                  className={`w-full p-2.5 bg-white dark:bg-black border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
                     "activityLevel"
                   )}`}
                   value={activityLevel}
@@ -174,12 +177,12 @@ const SetGoal = () => {
 
             {/* Workout Days Per Week */}
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-              <label className="block md:w-60 mb-2 text-sm font-medium text-gray-700">
+              <label className="block md:w-60 mb-2 text-sm font-medium ">
                 Workout Days Per Week
               </label>
               <div className="w-full">
                 <select
-                  className={`w-full p-2.5 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
+                  className={`w-full p-2.5 bg-white dark:bg-black border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
                     "workoutDays"
                   )}`}
                   value={workoutDays}
@@ -200,12 +203,12 @@ const SetGoal = () => {
 
             {/* Experience Level */}
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-              <label className="block md:w-60 mb-2 text-sm font-medium text-gray-700">
+              <label className="block md:w-60 mb-2 text-sm font-medium ">
                 Experience Level
               </label>
               <div className="w-full">
                 <select
-                  className={`w-full p-2.5 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
+                  className={`w-full p-2.5 bg-white dark:bg-black border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${getInputBorderClass(
                     "experienceLevel"
                   )}`}
                   value={experienceLevel}
@@ -228,7 +231,7 @@ const SetGoal = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-between mt-12">
+          <div className="w-full flex flex-col-reverse gap-4 md:flex-row justify-between mt-12">
             <button
               onClick={() => setActiveStep(activeStep - 1)}
               className="bg-primary-400 hover:bg-primary-500 px-4 py-1 rounded-sm text-white cursor-pointer"

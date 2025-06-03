@@ -7,7 +7,13 @@ const TestimonialsSection = () => {
         What Our Users Are Saying{" "}
       </h1>
       <div className="flex flex-col md:flex-row  mt-10 justify-center items-center gap-8">
-        <div className="bg-background-400 dark:bg-backgroundDark-300 p-8 rounded-lg max-w-[400px]">
+        <div
+          data-aos="fade-right"
+          data-aos-duration="1200"
+          data-aos-delay="200"
+          data-aos-easing="ease-in"
+          className="bg-background-400 dark:bg-backgroundDark-300 p-8 rounded-lg max-w-[400px]"
+        >
           <p className="text-center">
             "I’ve never been this consistent with workouts! The AI advice is a
             game changer."
@@ -16,7 +22,13 @@ const TestimonialsSection = () => {
             <span>— Sarah M.</span>
           </div>
         </div>
-        <div className="bg-background-400 dark:bg-backgroundDark-300 p-8 rounded-lg max-w-[400px]">
+        <div
+          data-aos="fade-left"
+          data-aos-duration="1200"
+          data-aos-delay="200"
+          data-aos-easing="ease-in"
+          className="bg-background-400 dark:bg-backgroundDark-300 p-8 rounded-lg max-w-[400px]"
+        >
           <p className="text-center">
             "Helps me eat better and stay on track without a real coach."
           </p>
