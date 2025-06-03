@@ -74,8 +74,7 @@ FitCoach AI is a comprehensive fitness application that leverages artificial int
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/fitcoach-ai.git
-cd fitcoach-ai/frontend/fitcoach-app
+git clone [https://github.com/yourusername/fitcoach-ai.git](https://github.com/rKrishan99/fitcoarch-ai-frontend.git)
 ```
 
 ### 📁 Project Structure
